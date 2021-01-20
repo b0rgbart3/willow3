@@ -3,14 +3,15 @@
 import React from "react";
 import Carousel from 'react-bootstrap/Carousel';
 import './carouselstyle.css';
+import butterflies from "../assets/events/butterflies.jpg";
 
 function Events() {
     return(
         <Carousel>
             <Carousel.Item>
                 <img
-                className="d-block w-100"
-                src="holder.js/800x400?text=First slide&bg=373940"
+                className="d-block w-100 slideImage"
+                src={butterflies}
                 
                 />
                 <div className='mycaption'>
@@ -20,8 +21,8 @@ function Events() {
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                className="d-block w-100"
-                src="holder.js/800x400?text=Second slide&bg=282c34"
+                className="d-block w-100 slideImage"
+                src={butterflies}
                
                 />
 
@@ -34,8 +35,8 @@ function Events() {
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                className="d-block w-100"
-                src="holder.js/800x400?text=Third slide&bg=20232a"
+                className="d-block w-100 slideImage"
+                src={butterflies}
                 
                 />
 
