@@ -4,20 +4,29 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <div className="Main">
+              <div className="Tagline">
+              Love  <span className='star'>*</span>  Empower <span className='star'>*</span>  Heal <span className='star'>*</span>  Create <span className='star'>*</span>  Transform
+              </div>
+              <div className="logoBox">WILLOW<span className="halfspace"></span>KELLY.COM</div>
+              <div className="mainLinks">
+                <a href="about">About Willow</a>
+                <span class="mainLinkDivider">|</span>
+                <a href="classroom">Enter the Classroom</a>
+              </div>
+              <div className="join">
+                Subscribe
+              </div>
+              <div className="events">
+         
+              </div>
+              <footer>
+                Bringing the Magic of Love to Life and Death
+              </footer>
+ 
+      </div>
+
     </div>
   );
 }
