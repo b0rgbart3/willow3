@@ -126,24 +126,15 @@ footer {
 
 .events {
   background-color:white;
-  padding:40px;
+padding:0;
+overflow: hidden;
   width:80%;
   margin:auto;
   margin-top:50px;
   border-radius:14px;
 }
 
-.event {
-  border:1px solid orange;
-}
 
-.eventPicBox {
-  border: 1px solid blue;
-}
-
-.eventInfo {
-  border:1px solid red;
-}
 
 footer {
   color:rgb(46, 76, 121);

@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import Events from "./components/Events";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
               </div>
               <div className="events">
          
+              <Events />
               </div>
               <footer>
                 Bringing the Magic of Love to Life and Death
