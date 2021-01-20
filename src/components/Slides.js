@@ -54,11 +54,14 @@ function Slides() {
 }, [slideNumber, playing, slideCount]);
 
   function next() {
-    let newSlide = (slideNumber + 1) % slideCount
-        setSlideNumber( newSlide );
-        setSlideStyle( {
-          backgroundImage: "url(" + slideImages[newSlide] + ")",
-        });
+    setSlideNumber( (slideNumber + 1) % slideObjects.length );
+    setSlideStyle( { backgroundImage: "url(" + slideImages[(slideNumber+1) % slideObjects.length] + ")"} );
+    setPlaying(false);
+  }
+  function prev() {
+    setSlideNumber( (slideNumber -1  + slideObjects.length) % slideObjects.length );
+    setSlideStyle( { backgroundImage: "url(" + slideImages[(slideNumber-1 + slideObjects.length)% slideObjects.length] + ")"} );
+        setPlaying(false);
   }
 
   function frames() {
@@ -83,7 +86,7 @@ function Slides() {
 
   return (<div className="slides">{frames()}
   <div className="slideNav">
-      <div className="arrow left"><img src={left}/></div>
+      <div className="arrow left" onClick={prev}><img src={left}/></div>
       <div className="arrow right" onClick={next}><img src={right}/> </div>
       <div className="jumpDots">
       { slideObjects.map((slide,index) => (
