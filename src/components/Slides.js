@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./slides.css";
+import right from "../assets/images/right.svg";
+import left from "../assets/images/left.svg";
 import butterflies from "../assets/events/butterflies.jpg";
 import moths from "../assets/events/moths.jpg";
 import dragons from "../assets/events/dragons.jpg";
@@ -30,7 +32,7 @@ function Slides() {
   const [slideNumber, setSlideNumber] = useState(0);
   const [slideStyle, setSlideStyle] = 
     useState({ backgroundImage: "url(" + slideImages[0] + ")"});
-  const SLIDE_DURATION = 3000;
+  const SLIDE_DURATION = 7000;
 
   useEffect(
     () => {
@@ -43,17 +45,21 @@ function Slides() {
           // that automatically starts over at zero if
           // we get to the end of our list (using math 
           // instead of a condition.... yay!)
-          let newSlide = (slideNumber + 1) % slideCount
-        setSlideNumber( newSlide );
-        setSlideStyle( {
-          backgroundImage: "url(" + slideImages[newSlide] + ")",
-        });
+          next();
         
     }, SLIDE_DURATION );
     return () => clearTimeout(slideTimer);
   }
   
 }, [slideNumber, playing, slideCount]);
+
+  function next() {
+    let newSlide = (slideNumber + 1) % slideCount
+        setSlideNumber( newSlide );
+        setSlideStyle( {
+          backgroundImage: "url(" + slideImages[newSlide] + ")",
+        });
+  }
 
   function frames() {
 
@@ -77,12 +83,13 @@ function Slides() {
 
   return (<div className="slides">{frames()}
   <div className="slideNav">
-      <div className="leftArrow"> x </div>
-      <div className="rightArrow"> x </div>
+      <div className="arrow left"><img src={left}/></div>
+      <div className="arrow right" onClick={next}><img src={right}/> </div>
       <div className="jumpDots">
-          <div className="jumpDot">x</div>
-          <div className="jumpDot">x</div>
-          <div className="jumpDot">x</div>
+      { slideObjects.map((slide,index) => (
+        <div className='jumpDot' key={index}></div>
+      ))}
+     
       </div>
   </div>
   </div>);
