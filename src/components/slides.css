@@ -1,18 +1,19 @@
 .slides {
     background-color:black;
-    border-radius:8px;
-    width:80%;
+    width:100%;
     margin:auto;
-    height:400px;
+    height:380px;
     margin-top:40px;
     position:relative;
-    border-radius:8px;
     overflow: hidden;
+    max-width:1000px;
+    box-sizing:border-box;
 }
 
 .slide {
     background-position: 50% 50%;
-    background-size:100%;
+    background-size:144%;
+    background-repeat: no-repeat;
     width:100%;
     height:100%;
     display:inline-block;
@@ -22,22 +23,37 @@
     text-align:left;
     box-sizing:border-box;
     font-size:1em;
-
+    padding:0;
+    transition:all .5s;
+  
 }
 
 .caption {
-
-    margin:20px;
-    margin-top:0px;
-
-}
+    margin:auto;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+    top:0;
+    border-radius:0 0 10px 10px;
+    max-width:80%;
+    z-index: 200;
+    padding-left:20px;
+    padding-right:20px;
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom:0;
+}   
 .caption h1 {
-    font-size:30px;
+    font-size:34px;
     text-transform: uppercase;
+    font-family: "Pathway Gothic One", sans-serif;
+    margin-bottom:0;
 }
 
 .caption p {
-
+    font-size:17px;
+    line-height:1.5em;
+    margin-bottom:0;
+    padding-bottom:0;
 }
 
 .slideNav {
@@ -77,17 +93,32 @@
     width:100%;
     position: absolute;
     bottom:0px;
-    height:50px;
+    height:40px;
     display:flex-box;
 }
 .jumpDot {
     display:inline-block;
     flex: justify-center;
-    background-color:white;
+    border:2px solid rgba(255,255,255,.5);
+    background-color:rgba(255,255,255,.25);
     border-radius:50%;
-    width:20px;
-    height:20px;
+    width:16px;
+    height:16px;
     margin-left:10px;
     margin-right:10px;
-    border:8px solid red;
+}
+
+.jumpDot.current {
+    border:2px solid white;
+    background-color:rgba(255,255,255,1);
+}
+
+
+@media only screen and (min-width:840px) {
+    .slide {
+        background-size:100%;
+    }
+    .caption {
+        max-width:40%;
+    }
 }

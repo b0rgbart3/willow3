@@ -11,18 +11,18 @@ function Slides() {
 
   let slideObjects = [
     {
-      title: "Upcoming Workshop 1",
-      caption: "Lorem ipsum datum filum",
+      title: "Upcoming Workshop",
+      caption: "Lorem ipsum datum filum. This is a short description of the workshop including some details like where and when it will take place - but not the full details.",
       image: "butterflies",
     },
     {
-      title: "Upcoming Workshop 2",
-      caption: "Lorem ipsum datum filum",
+      title: "Zoom Class - Becoming a Death Doula",
+      caption: "Lorem ipsum datum filum. This is a short description of the workshop including some details like where and when it will take place - but not the full details.",
       image: "butterflies",
     },
     {
-      title: "Upcoming Workshop 3",
-      caption: "Lorem ipsum datum filum",
+      title: "Extra Special Event",
+      caption: "Lorem ipsum datum filum. This is a short description of the workshop including some details like where and when it will take place - but not the full details.",
       image: "butterflies",
     },
   ];
@@ -54,31 +54,43 @@ function Slides() {
 }, [slideNumber, playing, slideCount]);
 
   function next() {
-    setSlideNumber( (slideNumber + 1) % slideObjects.length );
-    setSlideStyle( { backgroundImage: "url(" + slideImages[(slideNumber+1) % slideObjects.length] + ")"} );
     setPlaying(false);
+    setSlideStyle( { opacity: 0, backgroundImage: "url(" + slideImages[(slideNumber) % slideObjects.length] + ")" });
+    let nextTimer = setTimeout(() => {
+      setSlideNumber( (slideNumber + 1) % slideObjects.length );
+      setSlideStyle( {  opacity:.5, backgroundImage: "url(" + slideImages[(slideNumber+1) % slideObjects.length] + ")"} );
+      clearTimeout(nextTimer);
+
+      setSlideStyle( {  opacity:.0, backgroundImage: "url(" + slideImages[(slideNumber+1) % slideObjects.length] + ")"} );
+      let nextTimer2 = setTimeout(() => {
+        setSlideStyle( { opacity:1, backgroundImage: "url(" + slideImages[(slideNumber+1) % slideObjects.length] + ")"} );
+        clearTimeout(nextTimer2);
+      },10);
+
+    }, 600);
+
+
   }
   function prev() {
     setSlideNumber( (slideNumber -1  + slideObjects.length) % slideObjects.length );
-    setSlideStyle( { backgroundImage: "url(" + slideImages[(slideNumber-1 + slideObjects.length)% slideObjects.length] + ")"} );
+    setSlideStyle( { opacity: 1, backgroundImage: "url(" + slideImages[(slideNumber-1 + slideObjects.length)% slideObjects.length] + ")"} );
         setPlaying(false);
+  }
+
+  function jumpTo(index) {
+    setSlideNumber( index );
+    setSlideStyle({ opacity: 1, backgroundImage:"url("+slideImages[index]+")"});
+    setPlaying(false);
   }
 
   function frames() {
 
-    // return slideObjects.map((slide, index) => (
-    //   <div key={index} style={slideStyle} className='slide'>
-    //       <div className='caption'>
-    //           <h1>{slideObjects}</h1>
-    //           <p>Caption text here, lorem ipusm data filum.</p>
-    //       </div>
-    //   </div>
-    // ));
     return (
           <div key={slideNumber} style={slideStyle} className='slide'>
           <div className='caption'>
           <h1>{slideObjects[slideNumber].title}</h1>
           <p>{slideObjects[slideNumber].caption}</p>
+          <div className='join'> Learn more</div>
           </div>
           </div>
     )
@@ -90,8 +102,9 @@ function Slides() {
       <div className="arrow right" onClick={next}><img src={right}/> </div>
       <div className="jumpDots">
       { slideObjects.map((slide,index) => (
-        <div className='jumpDot' key={index}></div>
-      ))}
+        index === slideNumber ? 
+        <div className='jumpDot current' key={index} ></div> :
+        <div className='jumpDot' key={index} onClick={()=>jumpTo(index)}></div>       ))}
      
       </div>
   </div>
