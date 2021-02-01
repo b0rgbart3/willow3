@@ -16,7 +16,7 @@ function Slides() {
       image: "butterflies",
     },
     {
-      title: "Zoom Class - Becoming a Death Doula",
+      title: "Exciting New WAF Class",
       caption: "Lorem ipsum datum filum. This is a short description of the workshop including some details like where and when it will take place - but not the full details.",
       image: "butterflies",
     },
