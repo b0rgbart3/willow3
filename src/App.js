@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Slides from "./components/Slides";
+import Slider from "./components/Slider";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
               </div>
        
          
-              <Slides />
+              <Slider />
      
              
               <footer>
