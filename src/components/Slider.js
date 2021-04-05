@@ -57,6 +57,12 @@ function slide() {
   setPrevSlide( (prevSlide + 1) % slideCount );
 }
 
+function slideback() {
+  setSlideNumber( (slideNumber -1) % slideCount );
+  setNextSlide( (slideNumber) % slideCount );
+  setPrevSlide( (prevSlide + 1) % slideCount );
+}
+
 function smoothSlide() {
     // toggle SlideAPos
     if (slideAPos == "pos2") {
@@ -103,9 +109,10 @@ function smoothSlide() {
 
   function frames() {
     
-    // style={{backgroundImage:"url(assets/events/"+slideObjects[prevNumber].image+".jpg)"}}
-
-    return (<><div key={0} className={'slide slideA ' + slideAPos} 
+    // We always output 2 slides - the current one, and the next one.
+    return (<>
+    
+         <div key={0} className={'slide slideA ' + slideAPos} 
          style={{backgroundImage:"url(assets/events/"+slideObjects[slideNumber].image+".jpg)"}}
          >L</div>
          <div key={2} className={'slide slideC ' + slideCPos}
