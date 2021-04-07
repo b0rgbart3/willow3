@@ -1,9 +1,14 @@
 import React, {useEffect, useState} from "react";
+import "../App.css";
 import "./Slider.css";
-import right from "../assets/images/right.svg";
-import left from "../assets/images/left.svg";
+import useProgress from "./useProgress";
 
-function Slider() {
+// import right from "../assets/images/right.svg";
+// import left from "../assets/images/left.svg";
+
+function Slider({direction}) {
+
+  let SLIDEINTERVAL = 5000;
 
   let slideObjects = [
     {
@@ -23,120 +28,136 @@ function Slider() {
     },
     
   ];
+  // decrease the slide counter -- and cycle through
+  // (currentIndex -1 + slides.length) % slides.length
+  // increase:
+  // (currentIndex + 1) % slides.length;
 
-  const [playing, setPlaying] = useState(true);
+  //const [playing, setPlaying] = useState(true);
   const slideCount = slideObjects.length;
-  const [slideNumber, setSlideNumber] = useState(0);
-  const [nextSlide, setNextSlide] = useState(1);
-  const [prevSlide, setPrevSlide] = useState(2);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [slideWidth, setSlideWidth] = useState(800);
+  const [pos1, setPos1] = useState(window.innerWidth/2 - (slideWidth/2) - slideWidth);
+  const [pos2, setPos2] = useState(window.innerWidth/2 - (slideWidth/2));
+  const [pos3, setPos3] = useState(window.innerWidth/2 + (slideWidth/2));
+  const [slide, setSlide] = useState(0);
+  const [playing, setPlaying] = useState(true);
 
-  const [slideRotation, setSlideRotation] = useState(0);
-  const [slideAPos, setSlideAPos] = useState("pos2");
-  const [slideCPos, setSlideCPos] = useState("pos1");
-  const [slideBPos, setSlideBPos] = useState("pos2");
-  const SLIDE_DURATION = 2000;
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+    setPos2( width/2 -(slideWidth/2) );
+    setPos1( width/2 - (slideWidth/2) - slideWidth);
+    setPos3( width/2 + (slideWidth/2));
+  };
 
+  // function useMedia(query) {
+  //   let [matches, setMatches] = useState(
+  //     window.matchMedia(query).matches
+  //   )
+
+  //   // like CDupdate and CDMount
+  //   useEffect(()=> {
+  //     let media = window.matchMedia(this.props.query);
+  //     if (media.matches !== matches) {
+  //       setMatches( media.matches );
+  //     }
+  //     let listener = () => setMatches(media.matches);
+  //     media.addListener(listener);
+  //     return () =>
+  //       media.removeListener(listener);
+  //   }, [ query ]) 
+
+  //   return matches
+  // }
 
   useEffect(
     () => {
-    if (playing) {
-      let slideTimer = setTimeout(() => {
-        if (playing) {
-          next();
-        }
-    }, SLIDE_DURATION );
-    return () => clearTimeout(slideTimer);
+
+      window.addEventListener('resize', handleResize);
+      
+      // Clean up our Event Listener
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      }
+    }
+  );
+
+  useEffect(
+    () => {
+      let timeout;
+      if (playing) {
+        timeout = setTimeout(() => {
+        setSlide((slide + 1) % slideObjects.length);
+        console.log(slide);
+        handleResize();
+      }, SLIDEINTERVAL);
+    }
+      return() => clearTimeout(timeout);
+     
+    }, [ slide, playing ]
+  )
+
+  function toggle() {
+    setPlaying(!playing);
   }
-  
-}, [slideNumber, nextSlide, slideCPos, slideAPos, slideRotation]);
+  function ProgressBar({animate, time}) {
+    let progress = useProgress(animate, time);
 
-
-function slide() {
-  setSlideNumber( (slideNumber + 1) % slideCount );
-  setNextSlide( (nextSlide + 1) % slideCount );
-  setPrevSlide( (prevSlide + 1) % slideCount );
-}
-
-function slideback() {
-  setSlideNumber( (slideNumber -1) % slideCount );
-  setNextSlide( (slideNumber) % slideCount );
-  setPrevSlide( (prevSlide + 1) % slideCount );
-}
-
-function smoothSlide() {
-    // toggle SlideAPos
-    if (slideAPos == "pos2") {
-      setSlideAPos("pos3 slider faint");
-    } else {
-      setSlideAPos("pos2");
-    }
-
-    // toggle SlideCPos
-    if (slideCPos == "pos1") {
-      setSlideCPos("pos2 slider");
-    } else {
-      setSlideCPos("pos1");
-    }
-
-}
-
-  function next() {
-    let newRotation = slideRotation + 1;
-    if (newRotation > 1) {
-      newRotation = 0;
-    }
-    setSlideRotation(newRotation);
-
-    if (slideRotation == 1) {
-      slide();
-    }
-
-    smoothSlide();
-       
-
-  }
-  function goLeft() {
-      setPlaying( false );
-      slide();
-  }
-  function goRight() {
-    setPlaying( false );
-}
-
-  function jumpTo(index) {
+    return (
+      <div className="progressBar">
+        <div style={{width: `${progress * 100}%`}} />
+      </div>
+    )
 
   }
 
   function frames() {
+    // let small = useMedia("(max-width: 400px)")
+    // let large = useMedia("(min-width: 800px)")
     
-    // We always output 2 slides - the current one, and the next one.
+    //console.log(slideObjects);
+    // Output all the slides in a horizontal row
     return (<>
-    
-         <div key={0} className={'slide slideA ' + slideAPos} 
-         style={{backgroundImage:"url(assets/events/"+slideObjects[slideNumber].image+".jpg)"}}
-         >L</div>
-         <div key={2} className={'slide slideC ' + slideCPos}
-          style={{backgroundImage:"url(assets/events/"+slideObjects[nextSlide].image+".jpg)"}}
-           >R</div>
+
+<div className='slide' style={{left: pos1, width: slideWidth, backgroundImage:"url(assets/events/"+slideObjects[0].image+".jpg)"}} key="0">
+
+</div>
+<div className='slide' key="1" style={{left: pos2, width: slideWidth, backgroundImage:"url(assets/events/"+slideObjects[1].image+".jpg)"}}>
+<div className='slideInfo'>
+  <div className='title'>{slideObjects[slide].title}</div>
+  <div className='caption'>{slideObjects[slide].caption}</div>
+  <div className='pill'>Learn More</div>
+  </div>
+</div>
+<div className='slide' key="2" style={{left: pos3, width: slideWidth, backgroundImage:"url(assets/events/"+slideObjects[2].image+".jpg)"}}>
+
+</div>
+
        </>
     )
 
   }
 
   return (
+    <>
   <div className="slideContainer group">
-  <div className="slides">{frames()}<div className="arrow left" onClick={goRight}><img src={left}/></div>
-      <div className="arrow right" onClick={goLeft}><img src={right}/> </div>
-      <div className="jumpDots">
-      { slideObjects.map((slide,index) => (
-        index === slideNumber ? 
-        <div className='jumpDot current' key={index} ></div> :
-        <div className='jumpDot' key={index} onClick={()=>jumpTo(index)}></div>       ))}
-     
-      </div>
+      <ProgressBar key={slide + playing + 10} time={SLIDEINTERVAL} animate={playing} />
+  <div className="slides">{frames()}
 
   </div>
+  <div className="jumpDots">
   </div>
+
+
+  </div>
+  <div className='playButton'>
+  {playing? (
+    <div onClick={toggle}>Pause</div>
+  ) : (
+    <div onClick={toggle}>Play</div>
+  )}
+  </div>
+  </>
   );
 }
 

@@ -1,72 +1,67 @@
 
 .slideContainer {
-    overflow:hidden;
-    margin-top:40px;
     width:100%;
-    max-width:400px;
     margin:auto;
     margin-top:40px;
-    border:2px solid red;
+    overflow: hidden;
+    height:400px;
     box-sizing: border-box;
     position: relative;
 }
 
-
 .slides {
-    margin:auto;
-    max-width:400px;
-    width:100%;
-    height:300px;
-    position: relative;
-    max-width:1100px;
-    background-color:black;
-    overflow: hidden;
-}
 
+    height:400px;
+    position:relative;
+}
 .slide {
     display:inline-block;
-    width:400px;
-    height: 300px;
-    background-repeat: no-repeat;
-    background-position: 50% 0%;
-    background-size:135%;
+    box-sizing: border-box;
+    height:400px;
     position: absolute;
     top:0;
+    left:0;
+    background-size:100%;
+    background-repeat: no-repeat;
 }
 
-.slideA {
-    color:black;
-      transition-timing-function: ease-in;
+.slideInfo {
+    background: rgb(0,0,0);
+background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+width:60%;
+margin:auto;
+margin-top:20px;
 }
 
-.slideB {
-    background-color:rgba(0,0,0,0);
+.progressBar {
+    width:100%;
+    height:50px;
+    border:2px solid white;
+    text-align: left;
+}
+
+.progressBar div {
+    display:inline-block;
+    background-color:white;
+    height:50px;
+}
+.title {
+    font-size: 34px;
+    text-transform: uppercase;
+    font-family: "Pathway Gothic One", sans-serif;
+    padding-top:20px;
+    font-weight:700;
     color:white;
 }
 
-.slideC {
-    color:black;
-    transition-timing-function: ease-out;
-}
-
-.slider {
-    transition:all 2s;
-}
-
-.faint {
-    opacity:.25;
-}
-
-.pos1 {
-    left:400px;
-    opacity:.25;
-}
-.pos2 {
-    left:0px;
-    opacity:1;
-}
-.pos3 {
-    left:-400px;
+.caption {
+    width:100%;
+    color:white;
+    
+    font-size:17px;
+    line-height:28px;
+    padding:12px;
+    box-sizing: border-box;
 }
 
 .slideNav {
@@ -124,36 +119,14 @@
     background-color:rgba(255,255,255,1);
 }
 
+.playButton {
+    width:100%;
+    border:8px solid red;
+    height:100px;
+}
 
 @media only screen and (min-width:840px) {
 
-        .slideContainer {
-            max-width:800px;
-            height:400px;
-        }
 
-        .slides {
-            width:800px;
-            height:400px;
-        }
-
-        .slide {
-            width:800px;
-            background-size:100%;
-            height: 400px;
-        }
-
-        .pos1 {
-            left:800px;
-            opacity:.25;
-        }
-        .pos3 {
-            left:-800px;
-        }
-
-        .arrow {
-
-            top:150px;
-        }
 
 } 

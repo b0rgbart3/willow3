@@ -16,12 +16,12 @@ function App() {
                 <span className="mainLinkDivider">|</span>
                 <a href="classroom">Enter the Classroom</a>
               </div>
-              <div className="join">
+              <div className="join pill">
                 Subscribe
               </div>
        
          
-              <Slider />
+              <Slider direction="left" />
      
              
               <footer>
